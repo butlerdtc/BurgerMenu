@@ -1,2 +1,3 @@
-print("Burger Menu Combos")
-print("Hello")
+import easygui
+
+easygui.msgbox("Burger Menu Combos", "Menu")

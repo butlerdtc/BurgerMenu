@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="d93e7445-9f38-4eb1-acaa-80e24ac48b14" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,6 +28,11 @@
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Robson School\OneDrive - Middleton Grange School\YR12\12DTC\2.7 and 2.8 Programming\BurgerMenu" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
