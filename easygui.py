@@ -328,8 +328,6 @@ def msgbox(msg="(Your message goes here)", title=" ", ok_button="OK",image=None,
         raise AssertionError("The 'ok_button' argument to msgbox must be a string.")
 
     return buttonbox(msg=msg, title=title, choices=[ok_button], image=image,root=root)
-
-
 #-------------------------------------------------------------------
 # buttonbox
 #-------------------------------------------------------------------
