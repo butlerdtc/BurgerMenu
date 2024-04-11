@@ -22,7 +22,7 @@ def options():
     elif choice == "Show combos":
         easygui.msgbox("Show all combos", "Chosen option")
     else:
-        easygui.msgbox("Exit", "Exit")
+        exit()
     return choice
 
 
