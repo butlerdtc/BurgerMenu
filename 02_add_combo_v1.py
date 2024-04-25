@@ -1,5 +1,5 @@
 """V1 of Add combos
-Allows user to add a new combo if selected
+Allows user to add a new combo if selected and three items - basic structure
 """
 
 import easygui

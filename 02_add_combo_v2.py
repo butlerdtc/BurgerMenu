@@ -1,5 +1,6 @@
 """V2 of Add combos
-Allows user to add a new combo if selected
+Changes V1 to check if combo is already on the menu and will make user change
+name if it is there. Now allows user to enter items and price.
 """
 
 import easygui
