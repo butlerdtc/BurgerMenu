@@ -77,7 +77,7 @@ def add_combo_details():
 
 
 # Main routine
-# Dictionary from existing menu
+# Dictionary that is the existing menu
 existing_menu = {"Value": {"Beef Burger": 5.69, "Fries": 1, "Fizzy drink": 1},
                  "Cheesy": {"Cheese Burger": 6.69, "Fries": 1,
                             "Fizzy drink": 1},
@@ -85,6 +85,7 @@ existing_menu = {"Value": {"Beef Burger": 5.69, "Fries": 1, "Fizzy drink": 1},
                            "Smoothie": 2}
                  }
 
+# Runs the functions above
 new_details = add_combo_details()
 formatted_details = dictionary_formatter(new_details)
 
@@ -98,5 +99,10 @@ while True:
         easygui.msgbox("New combo has not been added", "Combo cancelled")
         break
     else:
-        # Temporary empty print statement until code has been brainstormed
-        print()
+        search = easygui.enterbox(f"What would you like to change from "
+                                  f"this combo?\n\n{formatted_details}",
+                                  "Edit new combo").title()
+        if search in formatted_details:
+            print("yes")
+        else:
+            print("no")
