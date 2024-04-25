@@ -102,7 +102,7 @@ while True:
         search = easygui.enterbox(f"What would you like to change from "
                                   f"this combo?\n\n{formatted_details}",
                                   "Edit new combo").title()
-        if search in formatted_details:
+        if search in new_details:
             print("yes")
         else:
             print("no")
