@@ -30,6 +30,7 @@
     "Python.01_options_v2.executor": "Run",
     "Python.01_welcome_screen_v1.executor": "Run",
     "Python.02_add_combo_v1.executor": "Run",
+    "Python.02_add_combo_v2.executor": "Debug",
     "Python.02_options_v1.executor": "Run",
     "Python.02_options_v2.executor": "Run",
     "Python.main.executor": "Run",

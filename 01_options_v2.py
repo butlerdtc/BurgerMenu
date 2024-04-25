@@ -1,10 +1,11 @@
 """V2 of options screen
-Converts V1 to a function
+Converts V1 to a function and all print statements to easygui
 """
 
 import easygui
 
 
+# Function to ask user what option they would like to choose
 def options():
     # Welcome statement
     easygui.msgbox("Burger Menu Combos", "Menu")
@@ -26,9 +27,12 @@ def options():
     return choice
 
 
+# Main routine
 # Dictionary to store the existing menu combos
-existing_menu = {"Value": {"Beef Burger", "Fries", "Fizzy drink"},
-                 "Cheesy": {"Cheese Burger", "Fries", "Fizzy drink"},
-                 "Super": {"Cheese Burger", "Large Fries", "Smoothie"}
+existing_menu = {"Value": {"Beef Burger": 5.69, "Fries": 1, "Fizzy drink": 1},
+                 "Cheesy": {"Cheese Burger": 6.69, "Fries": 1,
+                            "Fizzy drink": 1},
+                 "Super": {"Cheese Burger": 6.69, "Large Fries": 2,
+                           "Smoothie": 2}
                  }
 options()
