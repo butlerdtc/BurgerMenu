@@ -8,11 +8,11 @@ import easygui
 
 
 # Function to format dictionaries
-def dictionary_formatter(menu):
+def dictionary_formatter(dictionary):
     # Temporary list to store each formatted dictionary item
     temporary_list = []
     # Sorts through each nested dictionary
-    for combo, items in menu.items():
+    for combo, items in dictionary.items():
         temporary_list.append(f"{combo}:")
         # Sorts through each value in nested dictionary
         for item, price in items.items():
@@ -42,14 +42,14 @@ def float_checker(question, box_title):
 
 
 # Function to let user add new combo details
-def add_combo_details():
+def add_combo_details(menu):
     while True:
         # Dictionary to store entered data until user confirms its correct
         temporary_dict = {}
         new_combo = easygui.enterbox("Enter new combo name: ",
                                      "New Combo",).title()
         # Checks if combo entered is already on the menu
-        if new_combo in existing_menu:
+        if new_combo in menu:
             easygui.msgbox("This combo is already on the menu\n "
                            "Please enter a new combo name")
             continue
@@ -77,7 +77,6 @@ def add_combo_details():
 
 
 # Main routine
-# Dictionary that is the existing menu
 existing_menu = {"Value": {"Beef Burger": 5.69, "Fries": 1, "Fizzy drink": 1},
                  "Cheesy": {"Cheese Burger": 6.69, "Fries": 1,
                             "Fizzy drink": 1},
@@ -86,7 +85,7 @@ existing_menu = {"Value": {"Beef Burger": 5.69, "Fries": 1, "Fizzy drink": 1},
                  }
 
 # Runs the functions above
-new_details = add_combo_details()
+new_details = add_combo_details(existing_menu)
 formatted_details = dictionary_formatter(new_details)
 
 while True:
@@ -102,7 +101,19 @@ while True:
         search = easygui.enterbox(f"What would you like to change from "
                                   f"this combo?\n\n{formatted_details}",
                                   "Edit new combo").title()
-        if search in new_details:
-            print("yes")
-        else:
-            print("no")
+        for combo_name, combo_details in new_details.items():
+            if search == combo_name:
+                print("Name")
+                new_name = input("Enter new name for combo: ")
+                new_details[new_name] = new_details.pop(combo_name)
+            elif search in combo_details.keys():
+                print("Key")
+                new_item = input("Enter new item in combo")
+            else:
+                try:
+                    if float(search) in combo_details.values():
+                        print("Value")
+                    else:
+                        print("False")
+                except ValueError:
+                    print("Invalid input! Please enter a valid option.")
