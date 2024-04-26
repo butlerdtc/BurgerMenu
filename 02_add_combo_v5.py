@@ -1,7 +1,6 @@
-"""V4 of Add combos
-Uses V3 and converts the part of the program that asks and stores data the user
-enters into a function. Makes progress on the editing part of the component.
-Uses 05_float_checker to check if price added is a float or an integer.
+"""V5 of Add combos
+Uses V4 and converts the code to edit the added combo into its own function
+and all print statements to easygui.
 """
 
 import easygui
@@ -15,8 +14,8 @@ def dictionary_formatter(dictionary):
     for combo, items in dictionary.items():
         temporary_list.append(f"{combo}:")
         # Sorts through each value in nested dictionary
-        for item, price in items.items():
-            temporary_list.append(f" - " + f"{item}: ${round(price, 2)}")
+        for item, price_num in items.items():
+            temporary_list.append(f" - " + f"{item}: ${round(price_num, 2)}")
         # New line between each nested dictionary
         temporary_list.append("")
 
@@ -90,20 +89,20 @@ formatted_details = dictionary_formatter(new_details)
 
 while True:
     # Asks user what they want to choose
-    user_choice = easygui.buttonbox(formatted_details, "New Combo",
+    user_choice = easygui.buttonbox(formatted_details, "Combo",
                                     ["Confirm", "Edit", "Cancel"])
     if user_choice == "Confirm":
         # Will actually add combo in next version
-        easygui.msgbox("New combo has been added to menu", "New combo added")
+        easygui.msgbox("Combo has been added to menu", "Combo added")
         break
     elif user_choice == "Cancel":
-        easygui.msgbox("New combo has not been added", "Combo cancelled")
+        easygui.msgbox("Combo has not been added", "Combo cancelled")
         break
     else:
         # User enters what they would like changed
         search = easygui.enterbox(f"What would you like to change from "
                                   f"this combo?\n\n{formatted_details}",
-                                  "Edit new combo").title()
+                                  "Edit combo").title()
         # Empty lists to store the new names or prices
         new_dict_list = []
         new_item_list = []
@@ -123,14 +122,17 @@ while True:
                     if float(search) in combo_details.values():
                         new_price_list.append(float(search))
                     else:
-                        print("Please enter an item or price in the combo.")
+                        easygui.msgbox("Please enter an item or price in "
+                                       "the combo.", "Error")
                 except ValueError:
-                    print("Invalid input! Please enter a valid option.")
+                    easygui.msgbox("Invalid input! Please enter a valid "
+                                   "option.", "Error")
+
         # Runs through all data in the list
         for combo_name in new_dict_list:
             # User enters new combo name and it replaces the old name
-            new_name = (input(f"Enter new name for {combo_name} combo: ")
-                        .title())
+            new_name = easygui.enterbox(f"Enter new name for {combo_name} "
+                                        f"combo", "New combo name").title()
             new_details[new_name] = new_details.pop(combo_name)
         # Regenerates formatted_details
         formatted_details = dictionary_formatter(new_details)
@@ -141,7 +143,8 @@ while True:
             for combo_key, combo_details in new_details.items():
                 if search in combo_details.keys():
                     # User enters new item and it replaces the old item
-                    new_item = (input(f"Enter new item to replace {search}")
+                    new_item = (easygui.enterbox(f"Enter new item to replace "
+                                                 f"{search}", "New item")
                                 .title())
                     combo_details[new_item] = combo_details.pop(search)
         # Regenerates formatted_details
@@ -157,14 +160,15 @@ while True:
                     for key, value in combo_details.items():
                         if value == price:
                             # User enters new price and replaces old price
-                            new_price = float(input(f"Enter new price for "
-                                                    f"{key}: "))
+                            new_price = float_checker(f"Enter new price for "
+                                                      f"{key}: ",
+                                                      "New price")
                             combo_details[key] = new_price
                             # The break statements stop the loop from searching
                             # for the same price in other items and combos as
                             # it will only change the first instance of the
                             # price
                             break
-                    break
+                    break 
         # Regenerates formatted_details
         formatted_details = dictionary_formatter(new_details)
