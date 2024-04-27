@@ -1,8 +1,6 @@
-"""V2 of the formatter
-This version converts the output to a function to format any dictionary that
-with small changes can work in any program and uses easygui rather than print
-statements.
-Created by Robson Butler - 25/04/24
+"""V1 of show menu
+Uses formatter from 03_formatter_v2 and no need for its own function as its
+only two new lines of code
 """
 import easygui
 
@@ -32,4 +30,5 @@ existing_menu = {"Value": {"Beef Burger": 5.69, "Fries": 1, "Fizzy drink": 1},
                  "Super": {"Cheese Burger": 6.69, "Large Fries": 2,
                            "Smoothie": 2}
                  }
-dictionary_formatter(existing_menu)
+whole_menu = dictionary_formatter(existing_menu)
+easygui.msgbox(whole_menu, "Entire menu")

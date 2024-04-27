@@ -27,6 +27,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.00_burger_base_v1.executor": "Run",
+    "Python.00_burger_base_v2.executor": "Run",
     "Python.01_options_v2.executor": "Run",
     "Python.01_welcome_screen_v1.executor": "Run",
     "Python.02_add_combo_v1.executor": "Run",
@@ -37,6 +39,11 @@
     "Python.02_add_combo_v6.executor": "Run",
     "Python.02_options_v1.executor": "Run",
     "Python.02_options_v2.executor": "Run",
+    "Python.03_formatter_v2.executor": "Run",
+    "Python.05_search_combo_v1.executor": "Run",
+    "Python.05_search_combo_v2.executor": "Run",
+    "Python.05_search_combo_v3.executor": "Run",
+    "Python.06_show_menu_v1.executor": "Run",
     "Python.main.executor": "Run",
     "Python.test.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",

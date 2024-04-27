@@ -1,6 +1,6 @@
 """ Burger menu base component V2
 Each component gets added after creation and testing.
-Based on 00_burger_base_v1, added function from component 5
+Based on 00_burger_base_v1, added function from component 5 and 6
 Created by Robson Butler
 27/04/24
 """
@@ -17,7 +17,7 @@ def options(menu):
         choice = easygui.buttonbox("What would you like to do?",
                                    "Menu Options",
                                    ["Add combo", "Find combo", "Delete combo",
-                                    "Show Combos", "Exit"])
+                                    "Show combos", "Exit"])
         if choice == "Add combo":
             new_details = add_combo_details(menu)
             formatted_details_1 = dictionary_formatter(new_details)
@@ -29,7 +29,8 @@ def options(menu):
         elif choice == "Delete combo":
             easygui.msgbox("Delete Combo", "Chosen option")
         elif choice == "Show combos":
-            easygui.msgbox("Show all combos", "Chosen option")
+            whole_menu = dictionary_formatter(menu)
+            easygui.msgbox(whole_menu, "Entire menu")
         else:
             exit()
 
@@ -131,11 +132,11 @@ def edit_screen(information, organized_combo, original_menu):
                                         ["Confirm", "Edit", "Cancel"])
         if user_choice == "Confirm":
             original_menu.update(information)
-            easygui.msgbox("Combo has been added/updated",
-                           "Combo confirmed")
+            easygui.msgbox("Combo has been confirmed", "Combo confirmed")
             break
         elif user_choice == "Cancel":
-            easygui.msgbox("Combo has not been added", "Combo cancelled")
+            easygui.msgbox("Combo has not been added/updated",
+                           "Combo cancelled")
             break
         else:
             # Runs function to edit the combos details
