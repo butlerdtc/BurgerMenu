@@ -1,6 +1,6 @@
-""" Burger menu base component V1
+""" Burger menu base component V2
 Each component gets added after creation and testing.
-Functions from components 1, 2, 3 and 4
+Based on 00_burger_base_v1, added function from component 5
 Created by Robson Butler
 27/04/24
 """
@@ -12,24 +12,26 @@ import easygui
 def options(menu):
     # Welcome statement
     easygui.msgbox("Burger Menu Combos", "Menu")
-    # Ask user to choose an option
-    choice = easygui.buttonbox("What would you like to do?",
-                               "Menu Options",
-                               ["Add combo", "Find combo", "Delete combo",
-                                "Show Combos", "Exit"])
-    if choice == "Add combo":
-        new_details = add_combo_details(menu)
-        formatted_details = dictionary_formatter(new_details)
-        edit_screen(new_details, formatted_details, menu)
-    elif choice == "Find combo":
-        easygui.msgbox("Find Combo", "Chosen option")
-    elif choice == "Delete combo":
-        easygui.msgbox("Delete Combo", "Chosen option")
-    elif choice == "Show combos":
-        easygui.msgbox("Show all combos", "Chosen option")
-    else:
-        exit()
-    return choice
+    while True:
+        # Ask user to choose an option
+        choice = easygui.buttonbox("What would you like to do?",
+                                   "Menu Options",
+                                   ["Add combo", "Find combo", "Delete combo",
+                                    "Show Combos", "Exit"])
+        if choice == "Add combo":
+            new_details = add_combo_details(menu)
+            formatted_details_1 = dictionary_formatter(new_details)
+            edit_screen(new_details, formatted_details_1, menu)
+        elif choice == "Find combo":
+            combo_found = search_menu(menu)
+            formatted_details_2 = dictionary_formatter(combo_found)
+            edit_screen(combo_found, formatted_details_2, menu)
+        elif choice == "Delete combo":
+            easygui.msgbox("Delete Combo", "Chosen option")
+        elif choice == "Show combos":
+            easygui.msgbox("Show all combos", "Chosen option")
+        else:
+            exit()
 
 
 # Function to format dictionaries
@@ -102,6 +104,25 @@ def add_combo_details(menu):
     return temporary_dict
 
 
+# Function to search the menu for a combo
+def search_menu(menu_):
+    # Loops until a combo has been found
+    while True:
+        search = easygui.enterbox("Please enter the name of the combo",
+                                  "Search menu").title()
+        # Checks if combo is on the menu
+        if search in menu_:
+            easygui.msgbox("Combo has been found", "Combo found")
+            found_combo = menu_[search]
+            # Assigns the combo name as key to the items in the combo
+            full_combo = {search: found_combo}
+            break
+        else:
+            easygui.msgbox("That combo was not found\nPlease enter a "
+                           "combo on the menu", "Combo not found")
+    return full_combo
+
+
 # Function to let user choose if they want to edit the combo or not
 def edit_screen(information, organized_combo, original_menu):
     while True:
@@ -110,7 +131,8 @@ def edit_screen(information, organized_combo, original_menu):
                                         ["Confirm", "Edit", "Cancel"])
         if user_choice == "Confirm":
             original_menu.update(information)
-            easygui.msgbox("Combo has been added to menu", "Combo added")
+            easygui.msgbox("Combo has been added/updated",
+                           "Combo confirmed")
             break
         elif user_choice == "Cancel":
             easygui.msgbox("Combo has not been added", "Combo cancelled")
@@ -162,6 +184,7 @@ def edit_details(combo_info, formatted_combo):
             # If search does not match anything in the combo prints error
             else:
                 easygui.msgbox("Please enter a valid option", "Error")
+                return combo_info, formatted_combo
     # Regenerates formatted_details
     formatted_combo = dictionary_formatter(combo_info)
     return combo_info, formatted_combo
