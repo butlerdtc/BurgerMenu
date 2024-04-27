@@ -14,7 +14,8 @@ def float_checker(question):
                 return None
             # Converts entered number to a float
             float_number = float(number)
-            return float_number
+            correct_number = round(float_number, 2)
+            return correct_number
         except ValueError:
             easygui.msgbox("Please enter a valid price", "Error")
 

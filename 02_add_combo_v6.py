@@ -1,6 +1,8 @@
-"""V5 of Add combos
-Uses V4 and converts the code to edit the added combo into its own function
-and all print statements to easygui.
+"""V6 of Add combos
+Uses V4 and instead changes the code to only search the dictionary once
+instead of multiple times like in V4 and V5. This is a more efficient method
+compared to V5 as it directly changes the item rather than using lists and
+instead of a float checker it simply uses isdigit() to check for numbers.
 """
 
 import easygui
@@ -102,70 +104,40 @@ def edit_details(combo_info, formatted_combo):
     search = easygui.enterbox(f"What would you like to change from "
                               f"this combo?\n\n{formatted_combo}",
                               "Edit combo").title()
-    # Empty lists to store the new names or prices
-    new_dict_list = []
-    new_item_list = []
-    new_price_list = []
-    # Searches through all entries in dictionary
-    for combo_name, combo_details in combo_info.items():
-        if search == combo_name:
-            # Appends user input to list if found as dictionary key
-            new_dict_list.append(search)
-        elif search in combo_details.keys():
-            # Appends user input to list if found as key in dictionary
-            new_item_list.append(search)
-        else:
-            # Try except loop to check if user input is a value in
-            # dictionary
-            try:
-                if float(search) in combo_details.values():
-                    new_price_list.append(float(search))
-                else:
-                    easygui.msgbox("Please enter an item or price in "
-                                   "the combo.", "Error")
-            except ValueError:
-                easygui.msgbox("Invalid input! Please enter a valid "
-                               "option.", "Error")
-
-    # Runs through all data in the list
-    for combo_name in new_dict_list:
-        # User enters new combo name and it replaces the old name
-        new_name = easygui.enterbox(f"Enter new name for {combo_name} "
-                                    f"combo", "New combo name").title()
-        combo_info[new_name] = combo_info.pop(combo_name)
-
-    # Empty underscore because the variable there is not used, just needed to
-    # iterate through loop
-    for _ in new_item_list:
-        # Runs through all the pairs in the dictionary
-        for combo_key, combo_details in combo_info.items():
-            if search in combo_details.keys():
-                # User enters new item and it replaces the old item
-                new_item = (easygui.enterbox(f"Enter new item to replace "
-                                             f"{search}", "New item")
-                            .title())
-                combo_details[new_item] = combo_details.pop(search)
-
-    # Runs through all prices in the list
-    for price in new_price_list:
-        # Runs through all pairs in dictionary
+    # Checks if it is the combo name instead of iterating through a list
+    if search in combo_info:
+        new_name = easygui.enterbox(f"Enter new name for {search} combo",
+                                    "New combo name").title()
+        combo_info[new_name] = combo_info.pop(search)
+    else:
+        # If not the combo name it will run through the keys and values inside
         for combo_name, combo_details in combo_info.items():
-            # Checks the user input is a price in the dictionary
-            if price in combo_details.values():
-                # Checks all pairs to find the item(key) the price is for
-                for key, value in combo_details.items():
-                    if value == price:
-                        # User enters new price and replaces old price
-                        new_price = float_checker(f"Enter new price for "
-                                                  f"{key}: ",
-                                                  "New price")
-                        combo_details[key] = new_price
-                        # The break statements stop the loop from searching
-                        # for the same price in other items and combos as
-                        # it will only change the first instance of the
-                        # price
-                        break
+            # If search is a word it will check if it matches an item
+            if search in combo_details:
+                new_item = easygui.enterbox(f"Enter new item to replace "
+                                            f"{search}").title()
+                combo_details[new_item] = combo_details.pop(search)
                 break
+            # If search is a number it will ask for a new price
+            elif search.replace('.', '').isdigit():
+                rounded_search = round(float(search), 2)
+                # Keeps track if price is found or not
+                price_found = False
+                # Runs through all pairs to check if it matches a price
+                for item, price in combo_details.items():
+                    if price == rounded_search:
+                        new_price = float_checker(f"Enter new price for "
+                                                  f"{rounded_search}",
+                                                  "New price")
+                        combo_details[item] = new_price
+                        price_found = True
+                        break
+                if not price_found:
+                    easygui.msgbox("Please enter a valid option", "Error")
+                    return combo_info, formatted_combo
+            # If search does not match anything in the combo prints error
+            else:
+                easygui.msgbox("Please enter a valid option", "Error")
     # Regenerates formatted_details
     formatted_combo = dictionary_formatter(combo_info)
     return combo_info, formatted_combo
