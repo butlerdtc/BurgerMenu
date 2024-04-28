@@ -1,6 +1,5 @@
-""" Burger menu base component V2
-Each component gets added after creation and testing.
-Based on 00_burger_base_v2, added function from component 7
+""" Burger menu final version
+Based on 00_burger_base_v3
 Created by Robson Butler
 28/04/24
 """
