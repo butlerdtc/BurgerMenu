@@ -1,8 +1,8 @@
 """ Burger menu base component V2
 Each component gets added after creation and testing.
-Based on 00_burger_base_v1, added function from component 5 and 6
+Based on 00_burger_base_v1, added function from component 7
 Created by Robson Butler
-27/04/24
+28/04/24
 """
 
 import easygui
@@ -23,11 +23,11 @@ def options(menu):
             formatted_details_1 = dictionary_formatter(new_details)
             edit_screen(new_details, formatted_details_1, menu)
         elif choice == "Find combo":
-            combo_found = search_menu(menu, "Search menu")
+            combo_found, _ = search_menu(menu, "Search menu")
             formatted_details_2 = dictionary_formatter(combo_found)
             edit_screen(combo_found, formatted_details_2, menu)
         elif choice == "Delete combo":
-            easygui.msgbox("Delete Combo", "Chosen option")
+            delete_combo(menu)
         elif choice == "Show combos":
             whole_menu = dictionary_formatter(menu)
             easygui.msgbox(whole_menu, "Entire menu")
@@ -120,7 +120,7 @@ def search_menu(menu_, box_title_2):
         else:
             easygui.msgbox("That combo was not found\nPlease enter a "
                            "combo on the menu", "Combo not found")
-    return full_combo
+    return full_combo, search
 
 
 # Function to let user choose if they want to edit the combo or not
@@ -188,6 +188,32 @@ def edit_details(combo_info, formatted_combo):
     # Regenerates formatted_details
     formatted_combo = dictionary_formatter(combo_info)
     return combo_info, formatted_combo
+
+
+# Function to confirm combo deletion
+def delete_combo(full_menu):
+    delete_info, delete_name = search_menu(full_menu, "Delete combo")
+    present_combo = dictionary_formatter(delete_info)
+    if delete_name in full_menu:
+        choice = easygui.buttonbox(f"This is the combo you want to delete\n\n"
+                                   f"{present_combo}", "Delete combo",
+                                   ["Yes", "No"])
+        if choice == "Yes":
+            confirm = easygui.buttonbox(f"Confirm you want to delete "
+                                        f"{delete_name}",
+                                        "Confirmation",
+                                        ["Delete", "Cancel"])
+            if confirm == "Delete":
+                full_menu.pop(delete_name)
+            else:
+                easygui.msgbox(f"{delete_name} was not deleted",
+                               "Deletion cancelled")
+        else:
+            easygui.msgbox(f"{delete_name} was not deleted",
+                           "Deletion cancelled")
+    else:
+        easygui.msgbox("That combo was not found\nPlease enter a combo on "
+                       "the menu", "Combo not found")
 
 
 # Main routine

@@ -1,6 +1,6 @@
-"""V3 of search menu component
-Converts V2 to a function and uses the formatter from 03_formatter_v2 to
-display the combo found
+"""V2 of delete combo
+Uses 03_formatter_v2 and 05_search_combo_v3 to search for combo user wishes to
+delete then asks user to confirm if they want to delete.
 """
 import easygui
 
@@ -20,7 +20,7 @@ def dictionary_formatter(menu):
 
     # Removes unnecessary features from each value such as '(' or '['
     list_output = "\n".join(temporary_list)
-    easygui.msgbox(f"{list_output}")
+    return list_output
 
 
 # Function to search the menu for a combo
@@ -38,7 +38,7 @@ def search_menu(menu_, box_title_2):
         else:
             easygui.msgbox("That combo was not found\nPlease enter a "
                            "combo on the menu", "Combo not found")
-    return full_combo
+    return full_combo, search
 
 
 # Main routine
@@ -49,5 +49,21 @@ existing_menu = {"Value": {"Beef Burger": 5.69, "Fries": 1, "Fizzy drink": 1},
                            "Smoothie": 2}
                  }
 
-combo_found = search_menu(existing_menu, "Search menu")
-dictionary_formatter(combo_found)
+delete, name = search_menu(existing_menu, "Delete combo")
+present = dictionary_formatter(delete)
+if name in existing_menu:
+    choice = easygui.buttonbox(f"This is the combo you want to delete\n\n"
+                               f"{present}", "Delete combo",
+                               ["Yes", "No"])
+    if choice == "Yes":
+        confirm = easygui.buttonbox(f"Confirm you want to delete {name}",
+                                    "Confirmation", ["Delete", "Cancel"])
+        if confirm == "Delete":
+            existing_menu.pop(name)
+        else:
+            easygui.msgbox(f"{name} was not deleted", "Deletion cancelled")
+    else:
+        easygui.msgbox(f"{name} was not deleted", "Deletion cancelled")
+else:
+    easygui.msgbox("That combo was not found\nPlease enter a combo on "
+                   "the menu", "Combo not found")

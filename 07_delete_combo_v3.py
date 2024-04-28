@@ -1,6 +1,5 @@
-"""V3 of search menu component
-Converts V2 to a function and uses the formatter from 03_formatter_v2 to
-display the combo found
+"""V3 of delete combo
+Converts V2 to a function
 """
 import easygui
 
@@ -20,7 +19,7 @@ def dictionary_formatter(menu):
 
     # Removes unnecessary features from each value such as '(' or '['
     list_output = "\n".join(temporary_list)
-    easygui.msgbox(f"{list_output}")
+    return list_output
 
 
 # Function to search the menu for a combo
@@ -38,7 +37,32 @@ def search_menu(menu_, box_title_2):
         else:
             easygui.msgbox("That combo was not found\nPlease enter a "
                            "combo on the menu", "Combo not found")
-    return full_combo
+    return full_combo, search
+
+
+# Function to confirm combo deletion
+def delete_combo(full_menu):
+    delete, name = search_menu(full_menu, "Delete combo")
+    present = dictionary_formatter(delete)
+    if name in full_menu:
+        choice = easygui.buttonbox(f"This is the combo you want to delete\n\n"
+                                   f"{present}", "Delete combo",
+                                   ["Yes", "No"])
+        if choice == "Yes":
+            confirm = easygui.buttonbox(f"Confirm you want to delete {name}",
+                                        "Confirmation",
+                                        ["Delete", "Cancel"])
+            if confirm == "Delete":
+                full_menu.pop(name)
+            else:
+                easygui.msgbox(f"{name} was not deleted",
+                               "Deletion cancelled")
+        else:
+            easygui.msgbox(f"{name} was not deleted",
+                           "Deletion cancelled")
+    else:
+        easygui.msgbox("That combo was not found\nPlease enter a combo on "
+                       "the menu", "Combo not found")
 
 
 # Main routine
@@ -48,6 +72,4 @@ existing_menu = {"Value": {"Beef Burger": 5.69, "Fries": 1, "Fizzy drink": 1},
                  "Super": {"Cheese Burger": 6.69, "Large Fries": 2,
                            "Smoothie": 2}
                  }
-
-combo_found = search_menu(existing_menu, "Search menu")
-dictionary_formatter(combo_found)
+delete_combo(existing_menu)

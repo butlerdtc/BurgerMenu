@@ -4,7 +4,6 @@ with small changes can work in any program and uses easygui rather than print
 statements.
 Created by Robson Butler - 25/04/24
 """
-import easygui
 
 
 # Function to format dictionaries
