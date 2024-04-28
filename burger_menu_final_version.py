@@ -30,6 +30,7 @@ def options(menu):
         elif choice == "Show combos":
             whole_menu = menu_totals(menu)
             easygui.msgbox(whole_menu, "Entire menu")
+            print(whole_menu)
         else:
             exit()
 

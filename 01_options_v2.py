@@ -13,7 +13,7 @@ def options():
     choice = easygui.buttonbox("What would you like to do?",
                                "Menu Options",
                                ["Add combo", "Find combo", "Delete combo",
-                                "Show Combos", "Exit"])
+                                "Show combos", "Exit"])
     if choice == "Add combo":
         easygui.msgbox("Add Combo", "Chosen option")
     elif choice == "Find combo":

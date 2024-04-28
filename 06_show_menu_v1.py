@@ -41,3 +41,4 @@ existing_menu = {"Value": {"Beef Burger": 5.69, "Fries": 1, "Fizzy drink": 1},
                  }
 whole_menu = menu_totals(existing_menu)
 easygui.msgbox(whole_menu, "Entire menu")
+print(whole_menu)
