@@ -320,7 +320,9 @@ def indexbox(msg="Shall I continue?"
 #-----------------------------------------------------------------------
 # msgbox
 #-----------------------------------------------------------------------
-def msgbox(msg="(Your message goes here)", title=" ", ok_button="OK",image=None,root=None):
+def msgbox(msg: object = "(Your message goes here)", title: object = " ", ok_button: object = "OK",
+           image: object = None,
+           root: object = None) -> object:
     """
     Display a messagebox
     """
